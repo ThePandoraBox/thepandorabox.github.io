@@ -1,0 +1,18 @@
+{
+  "id": "ensemble-tops-forecasting-benchmark",
+  "created": "2026-07-27",
+  "category": "benchmarks",
+  "question": "Will the next published update to the Metaculus AI Forecasting Benchmark leaderboard (after 2026-07-27) be topped by a multi-agent ensemble approach rather than a single-model forecaster?",
+  "resolution_date": "2026-12-31",
+  "resolution_criteria": "Check Metaculus's published AI Forecasting Benchmark / FutureEval results for the next leaderboard update after today. Resolves YES if the top entry is documented as using ensembling across multiple models or multiple independent research passes; NO if it's a single model/single pass.",
+  "probability": 0.7,
+  "reasoning": "Ensembling and multi-pass research are cheap to add on top of any base forecaster and have a strong track record of beating single-shot predictions in both classical forecasting and LLM-based settings; several community Metaculus bots already use ensemble/multi-agent approaches, suggesting the field has already converged this direction.",
+  "status": "open",
+  "outcome": null,
+  "resolution_note": null,
+  "sources": [
+    { "title": "Metaculus/forecasting-tools", "url": "https://github.com/Metaculus/forecasting-tools" },
+    { "title": "FutureEval | Metaculus", "url": "https://www.metaculus.com/futureeval/" }
+  ],
+  "tags": ["forecasting", "ensembling", "benchmarks"]
+}

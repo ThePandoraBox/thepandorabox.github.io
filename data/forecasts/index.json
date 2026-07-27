@@ -1,0 +1,5 @@
+[
+  { "id": "orchestrator-workers-stays-dominant", "file": "orchestrator-workers-stays-dominant.json", "question": "Will an evaluator-optimizer loop become a first-class primitive in a top-5 agent framework by 2026-12-31?", "status": "open", "probability": 0.6, "resolution_date": "2026-12-31" },
+  { "id": "microsoft-agent-framework-v1", "file": "microsoft-agent-framework-v1.json", "question": "Will Microsoft's unified Agent Framework reach stable v1.0 by 2026-12-31?", "status": "open", "probability": 0.55, "resolution_date": "2026-12-31" },
+  { "id": "ensemble-tops-forecasting-benchmark", "file": "ensemble-tops-forecasting-benchmark.json", "question": "Will an ensemble approach top the next Metaculus AI Forecasting Benchmark update?", "status": "open", "probability": 0.7, "resolution_date": "2026-12-31" }
+]

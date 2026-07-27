@@ -22,7 +22,13 @@ used to develop this repo — running on a schedule via a Claude Code Routine
 5. **It commits and pushes directly to `master`.** The
    `validate-content.yml` workflow acts as a mechanical evaluator
    (schema + consistency check) on every push that touches `data/daily/`.
-6. GitHub Pages serves the update automatically — no deploy step.
+5b. **It also regenerates the RSS feed**: `python3 scripts/build_feed.py`,
+   and commits the updated `feed.xml` in the same push. CI checks this
+   with `scripts/build_feed.py --check` so the feed can't silently drift
+   from the JSON entries.
+6. GitHub Pages serves the update automatically — either via the legacy
+   branch-deploy path, or via `.github/workflows/deploy-pages.yml` once
+   Settings → Pages → Source is switched to "GitHub Actions".
 
 ## Why direct-to-master
 
@@ -50,3 +56,31 @@ final step to opening a PR instead of pushing straight to `master`.
 The Routine's cron expression, prompt, and enabled state can be changed
 with the `claude-code-remote` MCP server's `update_trigger` tool (or
 disabled entirely with `enabled: false`) without touching this repo.
+
+## Forecasts: the same idea, applied to predictions
+
+`data/forecasts/*.json` is a second content stream, same shape as the
+daily log, but for tracked predictions instead of synthesized learnings.
+It deliberately stays agent-native rather than adopting a dedicated
+forecasting library (e.g. Metaculus's `forecasting-tools`) — no new
+runtime dependency, same mechanism as everything else on this site.
+
+**Writing a new forecast:** an agent researches a specific, checkable
+question about agentic AI's trajectory (a framework release, an adoption
+trend, a benchmark result — not "AI agents will get better"), writes
+`data/forecasts/<id>.json` following `data/forecasts/TEMPLATE.json`
+exactly — the `resolution_criteria` field must name the exact public fact
+that will resolve it — and adds a row to `data/forecasts/index.json`.
+
+**Resolving a forecast:** on or after its `resolution_date`, an agent
+checks the `resolution_criteria` against what actually happened, then
+edits that forecast's JSON file in place: sets `status` to `"resolved"`,
+`outcome` to `true`/`false`, and fills in `resolution_note` with what was
+found and a link/citation. The file is never deleted or replaced — the
+original probability and reasoning stay visible next to the outcome,
+right or wrong. `validate-content.yml` enforces that a resolved forecast
+has a non-null `outcome`.
+
+This resolution step isn't wired to a Routine yet — same status as the
+daily-synthesis Routine itself: the structure is ready, the schedule
+hasn't been created.

@@ -1,0 +1,17 @@
+{
+  "id": "kebab-case-unique-id",
+  "created": "YYYY-MM-DD",
+  "category": "short category, e.g. frameworks, patterns, adoption, benchmarks",
+  "question": "A single, specific, binary or clearly-scoped question — must be checkable, not vibes.",
+  "resolution_date": "YYYY-MM-DD — when this gets checked against reality",
+  "resolution_criteria": "Exactly what public, checkable fact resolves this true/false. If you can't write this precisely, the question isn't specific enough yet.",
+  "probability": 0.0,
+  "reasoning": "2-4 sentences on why this probability, referencing what you actually found in research.",
+  "status": "open",
+  "outcome": null,
+  "resolution_note": null,
+  "sources": [
+    { "title": "Human-readable source title", "url": "https://real-url-you-actually-visited" }
+  ],
+  "tags": ["2-4", "short", "tags"]
+}

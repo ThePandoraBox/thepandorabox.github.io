@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+  <title>The Pandora Box — Daily Log</title>
+  <link>https://thepandorabox.github.io/</link>
+  <description>A daily-synthesized reference for agentic AI architecture patterns.</description>
+  <language>en-us</language>
+  <lastBuildDate>Mon, 27 Jul 2026 00:00:00 +0000</lastBuildDate>
+  <item>
+    <title>Evaluator-Optimizer Loops: Why the Best Agents Grade Their Own Work</title>
+    <link>https://thepandorabox.github.io/data/daily/2026-07-27.json</link>
+    <guid isPermaLink="false">evaluator-optimizer-loops-2026-07-27</guid>
+    <pubDate>Mon, 27 Jul 2026 00:00:00 +0000</pubDate>
+    <description>One LLM call generates a candidate response; a second call — sometimes the same model with a different prompt, sometimes a separate, cheaper model — evaluates it against explicit, written-out criteria and returns structured feedback. The loop repeats until the evaluator passes it or a retry budget runs out. It works well precisely where quality is easy to critique but hard to specify as a single instruction up front: code that has to pass tests, translations that have to preserve nuance, copy that has to hit a tone. The generator gets to be loose and fast; the evaluator carries the actual bar.</description>
+  </item>
+  <item>
+    <title>ReAct and Reflexion: How Agents Think Before They Act — and Learn From Failing</title>
+    <link>https://thepandorabox.github.io/data/daily/2026-07-26.json</link>
+    <guid isPermaLink="false">react-and-reflexion-2026-07-26</guid>
+    <pubDate>Sun, 26 Jul 2026 00:00:00 +0000</pubDate>
+    <description>ReAct (Yao et al., 2022) interleaves explicit reasoning traces with tool calls: the model writes a thought, takes an action, observes the result, and writes the next thought with that observation in context. It's the loop underneath almost every tool-using agent today, precisely because it makes the model's intermediate reasoning legible and correctable. Reflexion (Shinn et al., 2023) builds on top of it: when an attempt fails, the agent writes a verbal self-critique of what went wrong, stores it in an episodic memory buffer, and retries with that reflection injected into context — a form of reinforcement learning that updates behavior without touching any weights.</description>
+  </item>
+  <item>
+    <title>Orchestrator–Workers: The Pattern Behind Most Production Multi-Agent Systems</title>
+    <link>https://thepandorabox.github.io/data/daily/2026-07-25.json</link>
+    <guid isPermaLink="false">orchestrator-workers-2026-07-25</guid>
+    <pubDate>Sat, 25 Jul 2026 00:00:00 +0000</pubDate>
+    <description>Most 'multi-agent systems' that ship to production aren't a swarm of peers negotiating — they're one orchestrator LLM that reads the task, decides what subtasks it needs, spins up worker LLM calls for each, and synthesizes the results. The difference from static parallelization is that the orchestrator can't know the subtask list in advance; it has to derive it from the specific input. This is the shape underneath frameworks like AutoGen's group chat, CrewAI's hierarchical crews, and MetaGPT's role-based pipelines, even though each dresses it differently.</description>
+  </item>
+</channel>
+</rss>

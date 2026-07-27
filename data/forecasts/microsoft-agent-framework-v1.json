@@ -1,0 +1,17 @@
+{
+  "id": "microsoft-agent-framework-v1",
+  "created": "2026-07-27",
+  "category": "frameworks",
+  "question": "Will Microsoft's unified Agent Framework (merging Semantic Kernel's enterprise features with AutoGen's multi-agent orchestration, shipped April 2026 under Microsoft.Agents.AI) reach a stable v1.0 release by 2026-12-31?",
+  "resolution_date": "2026-12-31",
+  "resolution_criteria": "Check the project's official release notes/GitHub releases on 2026-12-31. Resolves YES if a release explicitly tagged 1.0 (or described as stable/GA, not preview/beta) exists by that date.",
+  "probability": 0.55,
+  "reasoning": "Merging two previously separate frameworks (Semantic Kernel, AutoGen) into one SDK is a large surface-area change; Microsoft has historically taken multiple preview cycles to stabilize major SDK rewrites. An 8-month window from initial ship to GA is plausible but not clearly favored either way.",
+  "status": "open",
+  "outcome": null,
+  "resolution_note": null,
+  "sources": [
+    { "title": "Best AI Agent Frameworks 2026 — Alice Labs", "url": "https://alicelabs.ai/en/insights/best-ai-agent-frameworks-2026" }
+  ],
+  "tags": ["microsoft", "agent-framework", "release"]
+}

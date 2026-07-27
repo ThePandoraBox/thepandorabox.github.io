@@ -136,6 +136,71 @@ function renderEntry(entry) {
   `;
 }
 
+function daysUntil(iso) {
+  const ms = new Date(iso + "T00:00:00Z") - new Date();
+  return Math.ceil(ms / 86400000);
+}
+
+function renderForecast(f) {
+  const pct = Math.round(f.probability * 100);
+  const isResolved = f.status === "resolved";
+  const dueLabel = isResolved
+    ? `resolved ${formatDate(f.resolution_date)}`
+    : (daysUntil(f.resolution_date) >= 0
+        ? `resolves in ${daysUntil(f.resolution_date)}d`
+        : `overdue for resolution`);
+
+  let resultBadge = "";
+  if (isResolved) {
+    const correct = f.outcome === true;
+    resultBadge = `<span class="forecast-result ${correct ? "result-yes" : "result-no"}">${correct ? "✓ CORRECT" : "✗ WRONG"}</span>`;
+  }
+
+  return `
+    <div class="forecast-card ${isResolved ? "resolved" : ""}">
+      <div class="forecast-prob" title="${pct}% likely">
+        <span class="prob-num">${pct}%</span>
+        <span class="prob-label">likely</span>
+      </div>
+      <div class="forecast-body">
+        <div class="forecast-meta">
+          <span class="forecast-category">${escapeHtml(f.category)}</span>
+          <span class="forecast-due">${escapeHtml(dueLabel)}</span>
+          ${resultBadge}
+        </div>
+        <p class="forecast-question">${escapeHtml(f.question)}</p>
+        <p class="forecast-reasoning">${escapeHtml(f.reasoning)}</p>
+      </div>
+    </div>
+  `;
+}
+
+async function loadForecasts() {
+  const list = document.getElementById("forecasts-list");
+  try {
+    const res = await fetch("data/forecasts/index.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("forecasts index.json not found");
+    const index = await res.json();
+
+    if (!index.length) {
+      list.innerHTML = `<p class="error">No forecasts logged yet.</p>`;
+      return;
+    }
+
+    const full = await Promise.all(index.map(async f => {
+      const r = await fetch(`data/forecasts/${f.file}`, { cache: "no-store" });
+      return r.json();
+    }));
+
+    full.sort((a, b) => (a.status === b.status ? 0 : a.status === "open" ? -1 : 1) || a.resolution_date.localeCompare(b.resolution_date));
+
+    list.innerHTML = full.map(renderForecast).join("");
+  } catch (err) {
+    list.innerHTML = `<p class="error">Couldn't load forecasts (${escapeHtml(err.message)}).</p>`;
+  }
+}
+
 document.getElementById("year").textContent = new Date().getFullYear();
 renderLibrary();
 loadDaily();
+loadForecasts();

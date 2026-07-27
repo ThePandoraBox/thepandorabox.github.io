@@ -6,7 +6,7 @@ AI architecture — hosted as a plain static site at
 
 ## What this is
 
-Two layers:
+Three layers:
 
 1. **The architecture library** (`assets/js/app.js`) — a hand-curated,
    stable reference of the recurring patterns agentic systems keep
@@ -16,12 +16,17 @@ Two layers:
 2. **The daily log** (`data/daily/*.json`) — one new entry added per day by
    an automated agent that researches recent developments in agentic
    architecture (papers, engineering blogs, trending repos) and synthesizes
-   a short, specific write-up. See [`AUTOMATION.md`](AUTOMATION.md) for
-   exactly how that loop runs.
+   a short, specific write-up.
+3. **Forecasts** (`data/forecasts/*.json`) — specific, checkable predictions
+   about where agentic AI is headed, each with a probability and a
+   resolution date, scored against reality once that date arrives.
 
-The site itself is a single static page (`index.html` + `assets/`) that
-fetches `data/daily/index.json` client-side and renders the latest entry
-and the full archive. No build step, no server, no framework.
+See [`AUTOMATION.md`](AUTOMATION.md) for exactly how the agent-driven loop
+behind (2) and (3) works.
+
+The site itself is a handful of static pages (`index.html`, `creator.html`,
+`404.html` + `assets/`) that fetch the JSON above client-side and render it.
+No build step, no server, no framework.
 
 ## Local development
 
@@ -38,17 +43,26 @@ JSON with `fetch()`, which browsers block on the `file://` scheme.)
 ## Hosting
 
 This repo is named `thepandorabox.github.io`, so GitHub Pages serves it
-automatically once enabled: **Settings → Pages → Source: Deploy from a
-branch → `master` / `root`**. No Actions build step is required for plain
-HTML/CSS/JS.
+automatically once enabled. Two ways to enable it:
 
-## Adding or editing a daily entry by hand
+- **Deploy from a branch** (simplest): Settings → Pages → Source: Deploy
+  from a branch → `master` / `root`.
+- **GitHub Actions** (recommended, already wired up): Settings → Pages →
+  Source: "GitHub Actions". `.github/workflows/deploy-pages.yml` then
+  validates content and deploys on every push to `master`.
 
-Copy `data/daily/TEMPLATE.json` to `data/daily/YYYY-MM-DD.json`, fill it
-in, and add a matching row to `data/daily/index.json` (newest first isn't
-required — the front end sorts by date). A GitHub Actions workflow
-(`.github/workflows/validate-content.yml`) checks schema and consistency
-on every push that touches `data/daily/`.
+## Adding or editing content by hand
+
+- **Daily entry**: copy `data/daily/TEMPLATE.json` to
+  `data/daily/YYYY-MM-DD.json`, fill it in, add a row to
+  `data/daily/index.json`, then run `python3 scripts/build_feed.py` to
+  refresh `feed.xml`.
+- **Forecast**: copy `data/forecasts/TEMPLATE.json` to
+  `data/forecasts/<id>.json`, fill it in — `resolution_criteria` must name
+  an exact, checkable fact — and add a row to `data/forecasts/index.json`.
+
+`.github/workflows/validate-content.yml` checks schema, index consistency,
+and feed freshness on every push that touches generated content.
 
 ## License
 

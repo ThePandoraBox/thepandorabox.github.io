@@ -1,0 +1,17 @@
+{
+  "id": "orchestrator-workers-stays-dominant",
+  "created": "2026-07-27",
+  "category": "patterns",
+  "question": "Will at least one of the top 5 agent frameworks (LangGraph, CrewAI, OpenAI Agents SDK, Claude Agent SDK, Microsoft Agent Framework) ship the Evaluator-Optimizer loop as a first-class, named primitive — not just a documented pattern you hand-roll from a while-loop — by 2026-12-31?",
+  "resolution_date": "2026-12-31",
+  "resolution_criteria": "Check each framework's official docs/changelog on 2026-12-31. Resolves YES if at least one exposes an evaluator-optimizer construct directly in its API (e.g. a named node/decorator/class), not merely a tutorial showing how to build one manually.",
+  "probability": 0.6,
+  "reasoning": "Evaluator-optimizer already appears as a documented pattern in Anthropic's agent-building guidance and is conceptually simple to formalize as a primitive (generate -> evaluate -> loop). Frameworks converge on documented patterns quickly once demand is visible, but 5 months is a short window for a specific API addition to ship and stabilize across even one major framework.",
+  "status": "open",
+  "outcome": null,
+  "resolution_note": null,
+  "sources": [
+    { "title": "Anthropic — Building Effective Agents", "url": "https://www.anthropic.com/research/building-effective-agents" }
+  ],
+  "tags": ["evaluator-optimizer", "frameworks", "primitives"]
+}

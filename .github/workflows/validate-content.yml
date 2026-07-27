@@ -1,16 +1,18 @@
-name: Validate daily content
+name: Validate content
 
-# Acts as a mechanical evaluator for entries the daily agent commits:
-# checks JSON validity, required fields, and that index.json matches the
-# files on disk. Runs on every push/PR that touches data/daily/.
+# Acts as a mechanical evaluator for entries the daily/forecasting agents
+# commit: checks JSON validity, required fields, index consistency, and
+# that feed.xml hasn't drifted from data/daily/. Runs on every push/PR
+# that touches generated content.
 
 on:
   push:
     branches: [master]
-    paths: ["data/daily/**"]
+    paths: ["data/daily/**", "data/forecasts/**", "feed.xml", "scripts/build_feed.py"]
   pull_request:
     branches: [master]
-    paths: ["data/daily/**"]
+    paths: ["data/daily/**", "data/forecasts/**", "feed.xml", "scripts/build_feed.py"]
+  workflow_call:
 
 jobs:
   validate:
@@ -88,3 +90,73 @@ jobs:
 
           print(f"OK — {len(entry_files)} daily entries validated, index.json consistent.")
           PY
+
+      - name: Validate forecast schema and index consistency
+        run: |
+          python3 - <<'PY'
+          import json, sys, re, glob, os
+
+          REQUIRED = ["id", "created", "category", "question", "resolution_date",
+                      "resolution_criteria", "probability", "reasoning", "status",
+                      "sources", "tags"]
+          DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+          errors = []
+
+          entry_files = sorted(
+              f for f in glob.glob("data/forecasts/*.json")
+              if os.path.basename(f) not in ("index.json", "TEMPLATE.json")
+          )
+
+          entries_by_file = {}
+          for path in entry_files:
+              fname = os.path.basename(path)
+              with open(path) as fh:
+                  data = json.load(fh)
+
+              for field in REQUIRED:
+                  if field not in data or data[field] in (None, "", []):
+                      errors.append(f"{fname}: missing or empty required field '{field}'")
+
+              for date_field in ("created", "resolution_date"):
+                  if date_field in data and not DATE_RE.match(str(data[date_field])):
+                      errors.append(f"{fname}: '{date_field}' must be YYYY-MM-DD")
+
+              prob = data.get("probability")
+              if not isinstance(prob, (int, float)) or not (0 <= prob <= 1):
+                  errors.append(f"{fname}: 'probability' must be a number between 0 and 1")
+
+              status = data.get("status")
+              if status not in ("open", "resolved"):
+                  errors.append(f"{fname}: 'status' must be 'open' or 'resolved', got {status!r}")
+              if status == "resolved" and data.get("outcome") not in (True, False):
+                  errors.append(f"{fname}: resolved forecast must set 'outcome' to true or false")
+
+              expected_fname = f"{data.get('id')}.json"
+              if fname != expected_fname:
+                  errors.append(f"{fname}: filename should match its id ({expected_fname})")
+
+              entries_by_file[fname] = data
+
+          with open("data/forecasts/index.json") as fh:
+              index = json.load(fh)
+
+          index_files = {e["file"] for e in index}
+          disk_files = set(entries_by_file.keys())
+
+          for missing in disk_files - index_files:
+              errors.append(f"forecasts/index.json: missing entry for {missing}")
+          for stale in index_files - disk_files:
+              errors.append(f"forecasts/index.json: references {stale} which doesn't exist on disk")
+
+          if errors:
+              print("Forecast validation FAILED:\n")
+              for e in errors:
+                  print(f"  - {e}")
+              sys.exit(1)
+
+          print(f"OK — {len(entry_files)} forecasts validated, index.json consistent.")
+          PY
+
+      - name: Check feed.xml is up to date with data/daily/
+        run: python3 scripts/build_feed.py --check
