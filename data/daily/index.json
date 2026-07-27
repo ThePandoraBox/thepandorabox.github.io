@@ -1,0 +1,5 @@
+[
+  { "date": "2026-07-27", "file": "2026-07-27.json", "title": "Evaluator-Optimizer Loops: Why the Best Agents Grade Their Own Work", "pattern": "Evaluator-Optimizer" },
+  { "date": "2026-07-26", "file": "2026-07-26.json", "title": "ReAct and Reflexion: How Agents Think Before They Act — and Learn From Failing", "pattern": "ReAct / Reflexion" },
+  { "date": "2026-07-25", "file": "2026-07-25.json", "title": "Orchestrator–Workers: The Pattern Behind Most Production Multi-Agent Systems", "pattern": "Orchestrator-Workers" }
+]

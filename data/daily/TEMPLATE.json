@@ -1,0 +1,12 @@
+{
+  "date": "YYYY-MM-DD",
+  "slug": "kebab-case-short-slug",
+  "title": "A specific, non-generic title — not \"Daily Update\"",
+  "pattern": "The single architecture pattern this entry centers on, e.g. Routing, ReAct, Memory Architectures",
+  "summary": "2-4 sentences. What was learned/found today, synthesized in your own words — not a paraphrase of one source's abstract. Should stand alone without the reader clicking any source link.",
+  "key_learning": "1-2 sentences. The single most useful, specific takeaway — the thing worth remembering a month from now. Prefer a concrete claim over a vague one.",
+  "sources": [
+    { "title": "Human-readable source title", "url": "https://real-url-you-actually-visited" }
+  ],
+  "tags": ["2-4", "short", "lowercase", "tags"]
+}

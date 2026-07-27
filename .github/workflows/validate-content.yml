@@ -1,0 +1,90 @@
+name: Validate daily content
+
+# Acts as a mechanical evaluator for entries the daily agent commits:
+# checks JSON validity, required fields, and that index.json matches the
+# files on disk. Runs on every push/PR that touches data/daily/.
+
+on:
+  push:
+    branches: [master]
+    paths: ["data/daily/**"]
+  pull_request:
+    branches: [master]
+    paths: ["data/daily/**"]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON syntax
+        run: |
+          for f in data/daily/*.json; do
+            echo "Checking $f"
+            python3 -m json.tool "$f" > /dev/null
+          done
+
+      - name: Validate entry schema and index consistency
+        run: |
+          python3 - <<'PY'
+          import json, sys, re, glob, os
+
+          REQUIRED = ["date", "slug", "title", "pattern", "summary", "key_learning", "sources", "tags"]
+          DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+          errors = []
+
+          entry_files = sorted(
+              f for f in glob.glob("data/daily/*.json")
+              if os.path.basename(f) not in ("index.json", "TEMPLATE.json")
+          )
+
+          entries_by_file = {}
+          for path in entry_files:
+              fname = os.path.basename(path)
+              with open(path) as fh:
+                  data = json.load(fh)
+
+              for field in REQUIRED:
+                  if field not in data or data[field] in (None, "", []):
+                      errors.append(f"{fname}: missing or empty required field '{field}'")
+
+              if "date" in data and not DATE_RE.match(str(data["date"])):
+                  errors.append(f"{fname}: 'date' must be YYYY-MM-DD, got {data['date']!r}")
+
+              expected_fname = f"{data.get('date')}.json"
+              if fname != expected_fname:
+                  errors.append(f"{fname}: filename should match its date ({expected_fname})")
+
+              if "sources" in data and isinstance(data["sources"], list):
+                  for s in data["sources"]:
+                      if not isinstance(s, dict) or "title" not in s or "url" not in s:
+                          errors.append(f"{fname}: each source needs 'title' and 'url'")
+
+              entries_by_file[fname] = data
+
+          with open("data/daily/index.json") as fh:
+              index = json.load(fh)
+
+          index_files = {e["file"] for e in index}
+          disk_files = set(entries_by_file.keys())
+
+          for missing in disk_files - index_files:
+              errors.append(f"index.json: missing entry for {missing}")
+          for stale in index_files - disk_files:
+              errors.append(f"index.json: references {stale} which doesn't exist on disk")
+
+          for e in index:
+              for field in ("date", "file", "title"):
+                  if field not in e or not e[field]:
+                      errors.append(f"index.json: entry missing '{field}': {e}")
+
+          if errors:
+              print("Content validation FAILED:\n")
+              for e in errors:
+                  print(f"  - {e}")
+              sys.exit(1)
+
+          print(f"OK — {len(entry_files)} daily entries validated, index.json consistent.")
+          PY

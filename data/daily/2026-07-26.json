@@ -1,0 +1,13 @@
+{
+  "date": "2026-07-26",
+  "slug": "react-and-reflexion",
+  "title": "ReAct and Reflexion: How Agents Think Before They Act — and Learn From Failing",
+  "pattern": "ReAct / Reflexion",
+  "summary": "ReAct (Yao et al., 2022) interleaves explicit reasoning traces with tool calls: the model writes a thought, takes an action, observes the result, and writes the next thought with that observation in context. It's the loop underneath almost every tool-using agent today, precisely because it makes the model's intermediate reasoning legible and correctable. Reflexion (Shinn et al., 2023) builds on top of it: when an attempt fails, the agent writes a verbal self-critique of what went wrong, stores it in an episodic memory buffer, and retries with that reflection injected into context — a form of reinforcement learning that updates behavior without touching any weights.",
+  "key_learning": "Reflexion only helps when the agent has a reliable failure signal — a test suite, an evaluator, a scorable outcome. Without one, the self-critique step just produces plausible-sounding excuses instead of an actual correction, and retries don't improve.",
+  "sources": [
+    { "title": "ReAct: Synergizing Reasoning and Acting in Language Models (arXiv:2210.03629)", "url": "https://arxiv.org/abs/2210.03629" },
+    { "title": "Reflexion: Language Agents with Verbal Reinforcement Learning (arXiv:2303.11366)", "url": "https://arxiv.org/abs/2303.11366" }
+  ],
+  "tags": ["reasoning", "tool-use", "self-critique", "memory"]
+}

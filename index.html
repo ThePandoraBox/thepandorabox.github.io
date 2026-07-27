@@ -1,18 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>The Pandora Box</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Pandora Box — Agentic Ecosystem in a Box</title>
+<meta name="description" content="A daily-synthesized reference for agentic AI architecture patterns — one box, opened every day.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='15' y='35' width='70' height='50' rx='4' fill='%23161b26' stroke='%23f2b134' stroke-width='4'/%3E%3Cpath d='M15 35 L50 15 L85 35' fill='none' stroke='%23f2b134' stroke-width='4' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='55' r='10' fill='%23f2b134'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-	# TODO
-	An indefinite project Structure. The Structure should include and indexed readme, pointing to the proper location of sub-readme in the project. The track sheets and executions sheets should be bound accordingly.
-	The aim is to increase the community to make a tool available to everyone that can make sense of the vast information available through internet and surface it in a human readable sized content.
-		<ol>
-			<li>Language Folder</li>
-			<li>Bootstrap Script to quickly check the current setup of the system and what else will be required to run the next command</li>
-			<li>List of all the services. Possible with the current Machine architecture and installation. Since there is a possibility that some of the applications might require different set of package. IT should be clearly mentioned which versions to be installed and of what. But the whole setup/troubleshooting should be done using single command.</li>
-			<li>Commands and chronological setup of tasks possible</li>
-			<li>Aiming at commiting some scrappers in plain JAVA or Python Language</li>
-		</ol>
+
+<div class="grid-overlay" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">THE PANDORA<span class="accent">BOX</span></span>
+    </a>
+    <nav class="site-nav">
+      <a href="#today">Today</a>
+      <a href="#library">Architecture Library</a>
+      <a href="#archive">Archive</a>
+      <a href="#about">About</a>
+      <a href="https://github.com/thepandorabox/thepandorabox.github.io" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-row">
+      <div class="hero-copy">
+        <p class="eyebrow">// AGENTIC ECOSYSTEM IN A BOX</p>
+        <h1>Every myth begins with someone<br>who couldn't resist <span class="accent">opening the box.</span></h1>
+        <p class="hero-sub">
+          The Pandora Box is a daily-synthesized field guide to agentic AI —
+          architecture patterns, papers, and production lessons, distilled
+          into something you can actually read in five minutes. One entry,
+          opened every day.
+        </p>
+        <div class="hero-cta">
+          <a href="#today" class="btn btn-primary">See today's synthesis →</a>
+          <a href="#library" class="btn btn-ghost">Browse the pattern library</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="box">
+          <div class="box-glow"></div>
+          <div class="box-lid"></div>
+          <div class="box-body"></div>
+          <span class="spark s1"></span>
+          <span class="spark s2"></span>
+          <span class="spark s3"></span>
+          <span class="spark s4"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="today" class="section today-section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">// OPENED TODAY</p>
+        <h2>Today's synthesis</h2>
+      </div>
+      <div id="today-card" class="today-card">
+        <p class="loading">Loading today's entry…</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="library" class="section library-section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">// REFERENCE</p>
+        <h2>Agentic architecture library</h2>
+        <p class="section-sub">The recurring shapes agentic systems keep converging on — the vocabulary the daily entries build on.</p>
+      </div>
+      <div id="library-grid" class="library-grid"></div>
+    </div>
+  </section>
+
+  <section id="archive" class="section archive-section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">// LOG</p>
+        <h2>Archive</h2>
+        <p class="section-sub">Every entry the box has released so far.</p>
+      </div>
+      <div id="archive-list" class="archive-list">
+        <p class="loading">Loading archive…</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section about-section">
+    <div class="wrap about-row">
+      <div>
+        <p class="eyebrow">// HOW IT WORKS</p>
+        <h2>An agent maintains this site.</h2>
+        <p>
+          Once a day, a Claude Code agent — not a cron-triggered script calling
+          an API, the same kind of coding agent you'd use to ship a PR — wakes up,
+          researches recent work on agentic architectures across papers, engineering
+          blogs, and trending repos, synthesizes one dense entry, and commits it
+          straight to this repository. No human copy-pastes the content in.
+        </p>
+        <p>
+          The pattern library below it is the stable reference layer, hand-curated
+          once. The daily log is the living layer — small, compounding, and honest
+          about its sources. See <code>AUTOMATION.md</code> in the repo for exactly
+          how the loop is wired.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat">
+          <span class="stat-num" id="stat-entries">–</span>
+          <span class="stat-label">entries synthesized</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">10</span>
+          <span class="stat-label">patterns in the library</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">1×</span>
+          <span class="stat-label">box opened, daily</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <span>© <span id="year"></span> The Pandora Box — MIT Licensed</span>
+    <a href="https://github.com/thepandorabox/thepandorabox.github.io" target="_blank" rel="noopener">Source on GitHub</a>
+  </div>
+</footer>
+
+<script src="assets/js/app.js"></script>
 </body>
 </html>

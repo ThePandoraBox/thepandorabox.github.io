@@ -1,0 +1,12 @@
+{
+  "date": "2026-07-27",
+  "slug": "evaluator-optimizer-loops",
+  "title": "Evaluator-Optimizer Loops: Why the Best Agents Grade Their Own Work",
+  "pattern": "Evaluator-Optimizer",
+  "summary": "One LLM call generates a candidate response; a second call — sometimes the same model with a different prompt, sometimes a separate, cheaper model — evaluates it against explicit, written-out criteria and returns structured feedback. The loop repeats until the evaluator passes it or a retry budget runs out. It works well precisely where quality is easy to critique but hard to specify as a single instruction up front: code that has to pass tests, translations that have to preserve nuance, copy that has to hit a tone. The generator gets to be loose and fast; the evaluator carries the actual bar.",
+  "key_learning": "This site's own daily pipeline uses a lightweight version of this: the CI workflow (see .github/workflows/validate-content.yml) is a mechanical evaluator that checks each new daily entry against a schema before it's considered valid — a cheap, deterministic stand-in for a full LLM evaluator, useful precisely because the criteria (required fields, valid JSON, valid date) are fully specifiable.",
+  "sources": [
+    { "title": "Anthropic — Building Effective Agents", "url": "https://www.anthropic.com/research/building-effective-agents" }
+  ],
+  "tags": ["self-critique", "quality", "workflow"]
+}
