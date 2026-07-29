@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orchestrator–Workers: The Pattern Behind Most Production Multi-Agent Systems — The Pandora Box</title>
+<meta name="description" content="Most &#x27;multi-agent systems&#x27; that ship to production aren&#x27;t a swarm of peers negotiating — they&#x27;re one orchestrator LLM that reads the task, decides what…">
+<link rel="canonical" href="https://thepandorabox.github.io/entries/2026-07-25.html">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://thepandorabox.github.io/entries/2026-07-25.html">
+<meta property="og:title" content="Orchestrator–Workers: The Pattern Behind Most Production Multi-Agent Systems — The Pandora Box">
+<meta property="og:description" content="Most &#x27;multi-agent systems&#x27; that ship to production aren&#x27;t a swarm of peers negotiating — they&#x27;re one orchestrator LLM that reads the task, decides what…">
+<meta property="og:image" content="https://thepandorabox.github.io/assets/og-image.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Orchestrator–Workers: The Pattern Behind Most Production Multi-Agent Systems — The Pandora Box">
+<meta name="twitter:description" content="Most &#x27;multi-agent systems&#x27; that ship to production aren&#x27;t a swarm of peers negotiating — they&#x27;re one orchestrator LLM that reads the task, decides what…">
+<meta name="twitter:image" content="https://thepandorabox.github.io/assets/og-image.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='15' y='35' width='70' height='50' rx='4' fill='%23161b26' stroke='%23f2b134' stroke-width='4'/%3E%3Cpath d='M15 35 L50 15 L85 35' fill='none' stroke='%23f2b134' stroke-width='4' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='55' r='10' fill='%23f2b134'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Orchestrator\u2013Workers: The Pattern Behind Most Production Multi-Agent Systems", "datePublished": "2026-07-25", "dateModified": "2026-07-25", "author": {"@type": "Person", "name": "Mukesh Bansal", "url": "https://thepandorabox.github.io/creator.html"}, "publisher": {"@type": "Organization", "name": "The Pandora Box", "url": "https://thepandorabox.github.io"}, "description": "Most 'multi-agent systems' that ship to production aren't a swarm of peers negotiating \u2014 they're one orchestrator LLM that reads the task, decides what subtasks it needs, spins up worker LLM calls for each, and synthesizes the results. The difference from static parallelization is that the orchestrator can't know the subtask list in advance; it has to derive it from the specific input. This is the shape underneath frameworks like AutoGen's group chat, CrewAI's hierarchical crews, and MetaGPT's role-based pipelines, even though each dresses it differently.", "mainEntityOfPage": "https://thepandorabox.github.io/entries/2026-07-25.html", "keywords": "multi-agent, orchestration, delegation"}</script>
+</head>
+<body>
+
+<div class="grid-overlay" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">THE PANDORA<span class="accent">BOX</span></span>
+    </a>
+    <nav class="site-nav">
+      <a href="../index.html#today">Today</a>
+      <a href="../index.html#library">Architecture Library</a>
+      <a href="../index.html#forecasts">Forecasts</a>
+      <a href="../index.html#archive">Archive</a>
+      <a href="../creator.html">Creator</a>
+      <a href="https://github.com/thepandorabox/thepandorabox.github.io" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main class="article-main">
+  <div class="wrap">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="../index.html#archive">Archive</a> / Orchestrator–Workers: The Pattern Behind Most Production Multi-Agent Systems</p>
+    <article class="article-card">
+      <div class="today-date">
+        <span>2026-07-25</span>
+        <span class="today-pattern-tag">Orchestrator-Workers</span>
+      </div>
+      <h1>Orchestrator–Workers: The Pattern Behind Most Production Multi-Agent Systems</h1>
+      <p class="summary">Most &#x27;multi-agent systems&#x27; that ship to production aren&#x27;t a swarm of peers negotiating — they&#x27;re one orchestrator LLM that reads the task, decides what subtasks it needs, spins up worker LLM calls for each, and synthesizes the results. The difference from static parallelization is that the orchestrator can&#x27;t know the subtask list in advance; it has to derive it from the specific input. This is the shape underneath frameworks like AutoGen&#x27;s group chat, CrewAI&#x27;s hierarchical crews, and MetaGPT&#x27;s role-based pipelines, even though each dresses it differently.</p>
+      <div class="key-learning">
+        <strong>Key learning</strong>
+        The orchestrator&#x27;s job is entirely decomposition and synthesis quality — the workers are usually simple, narrowly-scoped prompts. If a multi-agent system is underperforming, the fix is almost always a better orchestrator prompt (clearer subtask boundaries, explicit synthesis instructions), not smarter workers.
+      </div>
+      <div class="sources"><a href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">Anthropic — Building Effective Agents</a></div>
+      <p class="related-pattern">Part of the <a href="../index.html#library">architecture library</a>: Orchestrator-Workers</p>
+      <div class="tag-pills-inline"><a href="../tags/multi-agent.html">#multi-agent</a><a href="../tags/orchestration.html">#orchestration</a><a href="../tags/delegation.html">#delegation</a></div>
+      <div class="share-row">
+      <span class="share-label">Share</span>
+      <a class="share-btn" href="https://twitter.com/intent/tweet?text=Orchestrator–Workers: The Pattern Behind Most Production Multi-Agent Systems&url=https://thepandorabox.github.io/entries/2026-07-25.html" target="_blank" rel="noopener">X / Twitter</a>
+      <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https://thepandorabox.github.io/entries/2026-07-25.html" target="_blank" rel="noopener">LinkedIn</a>
+      <button class="share-btn copy-link-btn" type="button">Copy link</button>
+    </div>
+    </article>
+    <div class="article-nav"><span class="nav-spacer"></span><a class="nav-next" href="2026-07-26.html">ReAct and Reflexion: How Agents Think Before They Act — and Learn From Failing &rarr;</a></div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <span>&copy; <span class="js-year">2026</span> The Pandora Box &mdash; MIT Licensed</span>
+    <a href="../index.html">Back to the box</a>
+  </div>
+</footer>
+
+<script src="../assets/js/share.js"></script>
+<script data-goatcounter="https://thepandorabox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

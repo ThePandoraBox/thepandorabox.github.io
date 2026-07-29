@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluator-Optimizer Loops: Why the Best Agents Grade Their Own Work — The Pandora Box</title>
+<meta name="description" content="One LLM call generates a candidate response; a second call — sometimes the same model with a different prompt, sometimes a separate, cheaper model —…">
+<link rel="canonical" href="https://thepandorabox.github.io/entries/2026-07-27.html">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://thepandorabox.github.io/entries/2026-07-27.html">
+<meta property="og:title" content="Evaluator-Optimizer Loops: Why the Best Agents Grade Their Own Work — The Pandora Box">
+<meta property="og:description" content="One LLM call generates a candidate response; a second call — sometimes the same model with a different prompt, sometimes a separate, cheaper model —…">
+<meta property="og:image" content="https://thepandorabox.github.io/assets/og-image.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Evaluator-Optimizer Loops: Why the Best Agents Grade Their Own Work — The Pandora Box">
+<meta name="twitter:description" content="One LLM call generates a candidate response; a second call — sometimes the same model with a different prompt, sometimes a separate, cheaper model —…">
+<meta name="twitter:image" content="https://thepandorabox.github.io/assets/og-image.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='15' y='35' width='70' height='50' rx='4' fill='%23161b26' stroke='%23f2b134' stroke-width='4'/%3E%3Cpath d='M15 35 L50 15 L85 35' fill='none' stroke='%23f2b134' stroke-width='4' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='55' r='10' fill='%23f2b134'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Evaluator-Optimizer Loops: Why the Best Agents Grade Their Own Work", "datePublished": "2026-07-27", "dateModified": "2026-07-27", "author": {"@type": "Person", "name": "Mukesh Bansal", "url": "https://thepandorabox.github.io/creator.html"}, "publisher": {"@type": "Organization", "name": "The Pandora Box", "url": "https://thepandorabox.github.io"}, "description": "One LLM call generates a candidate response; a second call \u2014 sometimes the same model with a different prompt, sometimes a separate, cheaper model \u2014 evaluates it against explicit, written-out criteria and returns structured feedback. The loop repeats until the evaluator passes it or a retry budget runs out. It works well precisely where quality is easy to critique but hard to specify as a single instruction up front: code that has to pass tests, translations that have to preserve nuance, copy that has to hit a tone. The generator gets to be loose and fast; the evaluator carries the actual bar.", "mainEntityOfPage": "https://thepandorabox.github.io/entries/2026-07-27.html", "keywords": "self-critique, quality, workflow"}</script>
+</head>
+<body>
+
+<div class="grid-overlay" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-text">THE PANDORA<span class="accent">BOX</span></span>
+    </a>
+    <nav class="site-nav">
+      <a href="../index.html#today">Today</a>
+      <a href="../index.html#library">Architecture Library</a>
+      <a href="../index.html#forecasts">Forecasts</a>
+      <a href="../index.html#archive">Archive</a>
+      <a href="../creator.html">Creator</a>
+      <a href="https://github.com/thepandorabox/thepandorabox.github.io" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main class="article-main">
+  <div class="wrap">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="../index.html#archive">Archive</a> / Evaluator-Optimizer Loops: Why the Best Agents Grade Their Own Work</p>
+    <article class="article-card">
+      <div class="today-date">
+        <span>2026-07-27</span>
+        <span class="today-pattern-tag">Evaluator-Optimizer</span>
+      </div>
+      <h1>Evaluator-Optimizer Loops: Why the Best Agents Grade Their Own Work</h1>
+      <p class="summary">One LLM call generates a candidate response; a second call — sometimes the same model with a different prompt, sometimes a separate, cheaper model — evaluates it against explicit, written-out criteria and returns structured feedback. The loop repeats until the evaluator passes it or a retry budget runs out. It works well precisely where quality is easy to critique but hard to specify as a single instruction up front: code that has to pass tests, translations that have to preserve nuance, copy that has to hit a tone. The generator gets to be loose and fast; the evaluator carries the actual bar.</p>
+      <div class="key-learning">
+        <strong>Key learning</strong>
+        This site&#x27;s own daily pipeline uses a lightweight version of this: the CI workflow (see .github/workflows/validate-content.yml) is a mechanical evaluator that checks each new daily entry against a schema before it&#x27;s considered valid — a cheap, deterministic stand-in for a full LLM evaluator, useful precisely because the criteria (required fields, valid JSON, valid date) are fully specifiable.
+      </div>
+      <div class="sources"><a href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">Anthropic — Building Effective Agents</a></div>
+      <p class="related-pattern">Part of the <a href="../index.html#library">architecture library</a>: Evaluator-Optimizer</p>
+      <div class="tag-pills-inline"><a href="../tags/self-critique.html">#self-critique</a><a href="../tags/quality.html">#quality</a><a href="../tags/workflow.html">#workflow</a></div>
+      <div class="share-row">
+      <span class="share-label">Share</span>
+      <a class="share-btn" href="https://twitter.com/intent/tweet?text=Evaluator-Optimizer Loops: Why the Best Agents Grade Their Own Work&url=https://thepandorabox.github.io/entries/2026-07-27.html" target="_blank" rel="noopener">X / Twitter</a>
+      <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https://thepandorabox.github.io/entries/2026-07-27.html" target="_blank" rel="noopener">LinkedIn</a>
+      <button class="share-btn copy-link-btn" type="button">Copy link</button>
+    </div>
+    </article>
+    <div class="article-nav"><a class="nav-prev" href="2026-07-26.html">&larr; ReAct and Reflexion: How Agents Think Before They Act — and Learn From Failing</a><span class="nav-spacer"></span></div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <span>&copy; <span class="js-year">2026</span> The Pandora Box &mdash; MIT Licensed</span>
+    <a href="../index.html">Back to the box</a>
+  </div>
+</footer>
+
+<script src="../assets/js/share.js"></script>
+<script data-goatcounter="https://thepandorabox.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

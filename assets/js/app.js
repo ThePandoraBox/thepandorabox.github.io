@@ -103,7 +103,7 @@ async function loadDaily() {
     todayCard.innerHTML = renderEntry(latest);
 
     archiveList.innerHTML = sorted.map(e => `
-      <a class="archive-item" href="data/daily/${e.file}" target="_blank" rel="noopener">
+      <a class="archive-item" href="entries/${e.date}.html">
         <span class="archive-date">${formatDate(e.date)}</span>
         <span class="archive-title">${escapeHtml(e.title)}</span>
         <span class="archive-pattern">${escapeHtml(e.pattern || "")}</span>
@@ -133,6 +133,7 @@ function renderEntry(entry) {
         ${escapeHtml(entry.key_learning)}
       </div>` : ""}
     ${sources ? `<div class="sources">${sources}</div>` : ""}
+    <p class="related-pattern"><a href="entries/${entry.date}.html">Permalink &amp; share this entry →</a></p>
   `;
 }
 
@@ -170,6 +171,7 @@ function renderForecast(f) {
         </div>
         <p class="forecast-question">${escapeHtml(f.question)}</p>
         <p class="forecast-reasoning">${escapeHtml(f.reasoning)}</p>
+        <a class="forecast-permalink" href="forecasts/${f.id}.html">Permalink & sources →</a>
       </div>
     </div>
   `;

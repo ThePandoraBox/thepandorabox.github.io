@@ -22,10 +22,12 @@ used to develop this repo — running on a schedule via a Claude Code Routine
 5. **It commits and pushes directly to `master`.** The
    `validate-content.yml` workflow acts as a mechanical evaluator
    (schema + consistency check) on every push that touches `data/daily/`.
-5b. **It also regenerates the RSS feed**: `python3 scripts/build_feed.py`,
-   and commits the updated `feed.xml` in the same push. CI checks this
-   with `scripts/build_feed.py --check` so the feed can't silently drift
-   from the JSON entries.
+5b. **It regenerates everything derived from the JSON**:
+   `python3 scripts/build_feed.py` (refreshes `feed.xml`) and
+   `python3 scripts/build_pages.py` (refreshes the dated permalink page
+   at `entries/YYYY-MM-DD.html`, any `tags/*.html` pages it belongs to,
+   and `sitemap.xml`), committing all of it in the same push. CI checks
+   both with `--check` so nothing can silently drift from the JSON.
 6. GitHub Pages serves the update automatically — either via the legacy
    branch-deploy path, or via `.github/workflows/deploy-pages.yml` once
    Settings → Pages → Source is switched to "GitHub Actions".
@@ -48,7 +50,9 @@ final step to opening a PR instead of pushing straight to `master`.
 > Write a new entry at `data/daily/YYYY-MM-DD.json` following the schema
 > in `data/daily/TEMPLATE.json` exactly, using today's date. Only cite
 > sources you actually fetched and read. Add a matching row to
-> `data/daily/index.json`. Commit with a clear message and push to
+> `data/daily/index.json`. Run `python3 scripts/build_feed.py` and
+> `python3 scripts/build_pages.py` to regenerate the feed, permalink page,
+> tag pages, and sitemap. Commit with a clear message and push to
 > `master`.
 
 ## Adjusting the schedule
@@ -79,7 +83,8 @@ edits that forecast's JSON file in place: sets `status` to `"resolved"`,
 found and a link/citation. The file is never deleted or replaced — the
 original probability and reasoning stay visible next to the outcome,
 right or wrong. `validate-content.yml` enforces that a resolved forecast
-has a non-null `outcome`.
+has a non-null `outcome`. Run `python3 scripts/build_pages.py` afterward
+so the forecast's permalink page picks up the resolution.
 
 This resolution step isn't wired to a Routine yet — same status as the
 daily-synthesis Routine itself: the structure is ready, the schedule

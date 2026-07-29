@@ -8,10 +8,10 @@ name: Validate content
 on:
   push:
     branches: [master]
-    paths: ["data/daily/**", "data/forecasts/**", "feed.xml", "scripts/build_feed.py"]
+    paths: ["data/daily/**", "data/forecasts/**", "feed.xml", "entries/**", "forecasts/**", "tags/**", "sitemap.xml", "scripts/build_feed.py", "scripts/build_pages.py"]
   pull_request:
     branches: [master]
-    paths: ["data/daily/**", "data/forecasts/**", "feed.xml", "scripts/build_feed.py"]
+    paths: ["data/daily/**", "data/forecasts/**", "feed.xml", "entries/**", "forecasts/**", "tags/**", "sitemap.xml", "scripts/build_feed.py", "scripts/build_pages.py"]
   workflow_call:
 
 jobs:
@@ -160,3 +160,6 @@ jobs:
 
       - name: Check feed.xml is up to date with data/daily/
         run: python3 scripts/build_feed.py --check
+
+      - name: Check generated entry/forecast/tag pages and sitemap.xml are up to date
+        run: python3 scripts/build_pages.py --check

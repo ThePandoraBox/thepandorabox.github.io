@@ -39,7 +39,7 @@ def build_feed(entries):
         pub_date = format_datetime(
             datetime.strptime(e["date"], "%Y-%m-%d").replace(tzinfo=timezone.utc)
         )
-        link = f"{SITE_URL}/data/daily/{e['date']}.json"
+        link = f"{SITE_URL}/entries/{e['date']}.html"
         items.append(f"""  <item>
     <title>{escape(e['title'])}</title>
     <link>{escape(link)}</link>

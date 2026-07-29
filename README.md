@@ -24,9 +24,15 @@ Three layers:
 See [`AUTOMATION.md`](AUTOMATION.md) for exactly how the agent-driven loop
 behind (2) and (3) works.
 
-The site itself is a handful of static pages (`index.html`, `creator.html`,
-`404.html` + `assets/`) that fetch the JSON above client-side and render it.
-No build step, no server, no framework.
+The site itself is a handful of hand-written static pages (`index.html`,
+`creator.html`, `404.html` + `assets/`) that fetch the JSON above
+client-side and render it, plus a set of **generated** static pages —
+`entries/*.html`, `forecasts/*.html`, `tags/*.html` — one dated permalink
+per daily entry and forecast, and one topic-cluster page per tag, so
+individual entries are actually indexable and shareable instead of being
+raw JSON responses. `scripts/build_pages.py` generates these (and
+`sitemap.xml`) from the JSON source of truth. No build step for the
+hand-written pages, no server, no framework anywhere.
 
 ## Local development
 
@@ -55,14 +61,20 @@ automatically once enabled. Two ways to enable it:
 
 - **Daily entry**: copy `data/daily/TEMPLATE.json` to
   `data/daily/YYYY-MM-DD.json`, fill it in, add a row to
-  `data/daily/index.json`, then run `python3 scripts/build_feed.py` to
-  refresh `feed.xml`.
+  `data/daily/index.json`.
 - **Forecast**: copy `data/forecasts/TEMPLATE.json` to
   `data/forecasts/<id>.json`, fill it in — `resolution_criteria` must name
   an exact, checkable fact — and add a row to `data/forecasts/index.json`.
+- Then run both generators and commit their output:
+
+  ```sh
+  python3 scripts/build_feed.py    # refreshes feed.xml
+  python3 scripts/build_pages.py   # refreshes entries/, forecasts/, tags/, sitemap.xml
+  ```
 
 `.github/workflows/validate-content.yml` checks schema, index consistency,
-and feed freshness on every push that touches generated content.
+and that neither generator's output has drifted, on every push that
+touches generated content.
 
 ## License
 
