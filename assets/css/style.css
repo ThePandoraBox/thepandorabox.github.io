@@ -729,6 +729,11 @@ h1 {
 
 .tag-page-item .tag-item-title { font-weight: 600; }
 
+.comments-section {
+  max-width: 780px;
+  margin-top: 36px;
+}
+
 /* ---------- responsive ---------- */
 
 @media (max-width: 820px) {

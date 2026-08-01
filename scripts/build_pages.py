@@ -92,6 +92,7 @@ PAGE_SHELL = """<!DOCTYPE html>
   <div class="wrap">
     <p class="breadcrumb"><a href="{root}index.html">Home</a> / {breadcrumb_tail}</p>
     {content}
+    {comments}
   </div>
 </main>
 
@@ -104,6 +105,26 @@ PAGE_SHELL = """<!DOCTYPE html>
 """
 
 
+GISCUS_COMMENTS = """<section class="comments-section">
+      <script src="https://giscus.app/client.js"
+              data-repo="ThePandoraBox/thepandorabox.github.io"
+              data-repo-id="MDEwOlJlcG9zaXRvcnkyNTI5NjE4NTE="
+              data-category="Ideas"
+              data-category-id="DIC_kwDODxPkO84DCd7q"
+              data-mapping="og:title"
+              data-strict="0"
+              data-reactions-enabled="1"
+              data-emit-metadata="1"
+              data-input-position="top"
+              data-theme="transparent_dark"
+              data-lang="en"
+              data-loading="lazy"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </section>"""
+
+
 def esc(s):
     return html.escape(str(s), quote=True)
 
@@ -113,7 +134,7 @@ def truncate(s, n=155):
     return s if len(s) <= n else s[: n - 1].rsplit(" ", 1)[0] + "…"
 
 
-def render_shell(*, title, description, canonical, root, breadcrumb_tail, content, jsonld=""):
+def render_shell(*, title, description, canonical, root, breadcrumb_tail, content, jsonld="", comments=""):
     return PAGE_SHELL.format(
         title=esc(title),
         description=esc(truncate(description)),
@@ -124,6 +145,7 @@ def render_shell(*, title, description, canonical, root, breadcrumb_tail, conten
         header=HEADER.format(root=root, nav=NAV.format(root=root)),
         breadcrumb_tail=breadcrumb_tail,
         content=content,
+        comments=comments,
         footer=FOOTER.format(root=root),
     )
 
@@ -230,6 +252,7 @@ def build_entry_page(entry, prev_e, next_e):
         breadcrumb_tail=f'<a href="{root}index.html#archive">Archive</a> / {esc(entry["title"])}',
         content=content,
         jsonld=entry_jsonld(entry, url),
+        comments=GISCUS_COMMENTS,
     )
 
 
@@ -274,6 +297,7 @@ def build_forecast_page(f):
         root=root,
         breadcrumb_tail=f'<a href="{root}index.html#forecasts">Forecasts</a> / {esc(truncate(f["question"], 60))}',
         content=content,
+        comments=GISCUS_COMMENTS,
     )
 
 
