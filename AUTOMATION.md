@@ -14,11 +14,23 @@ doing real research and a real commit each day.
 against the account's real trigger list on 2026-08-29: **that Routine does
 not exist.** Three Routines are live on the account and none of them is it.
 
-The evidence was already on the page it describes — the newest entry in
-`data/daily/` is **2026-07-27**, thirty-three days earlier, against three
-entries in total. A file asserting a mechanism nobody re-checks is worse than
-no file: every reader downstream, human or agent, plans as though the pipeline
-is feeding.
+**It appears never to have run at all.** The git history is unambiguous:
+
+```
+d176a55  2026-07-27  Redesign as an agentic-ecosystem daily-synthesis site
+                     ← the ONLY commit that has ever touched data/daily/
+f6cfa23  2026-08-01  Document that the daily maintenance Routine is now live
+                     ← this file's "Status: live", five days LATER
+                     (zero commits to data/daily/ since)
+```
+
+All three entries arrived in one commit, dated 07-25/26/27 within it. The
+Routine was declared live afterwards and `data/daily/` has not been touched
+since. So this is not a pipeline that ran and stopped — there is no evidence it
+ever produced a single entry, and the claim was written before it could have.
+
+A file asserting a mechanism nobody re-checks is worse than no file: every
+reader downstream, human or agent, plans as though the pipeline is feeding.
 
 **What this does not mean.** The loop below is not wrong, it is unscheduled —
 the design, the schemas and the standing instruction are all still exactly
@@ -32,7 +44,7 @@ correction.
 **The content is now also published by the Easyly Network**, at
 `easyly-network.com/field-guide` — free, no account needed. It was adopted
 there on 2026-08-29 (SHL-111 in `ThePandoraBox/easyly-platform`) precisely
-because the pipeline here had stopped: the write-ups, forecasts and pattern
+because nothing here was feeding: the write-ups, forecasts and pattern
 library were ported into that repo, where they ship under its own gates and
 its daily release train. **That copy is the maintained one.** This repo keeps
 serving the site it always did; if the Routine is re-armed here, the two will

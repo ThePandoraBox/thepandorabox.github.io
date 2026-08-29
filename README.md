@@ -16,8 +16,9 @@ Three layers:
 2. **The daily log** (`data/daily/*.json`) — dated write-ups, each
    researching a recent development in agentic architecture (papers,
    engineering blogs, trending repos) and synthesizing a short, specific
-   piece. **It is not currently daily**: the Routine that produced these
-   stopped running and the newest entry is 2026-07-27. See
+   piece. **It is not currently daily**: all three arrived in a single
+   commit on 2026-07-27, the Routine meant to add more was declared live five
+   days after that, and `data/daily/` has not been touched since. See
    [`AUTOMATION.md`](AUTOMATION.md) for the measurement and how to re-arm it —
    this line used to promise "one new entry added per day", which was false
    for a month before anybody checked.
