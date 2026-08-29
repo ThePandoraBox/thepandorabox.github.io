@@ -8,9 +8,50 @@ doing real research and a real commit each day.
 
 ## The loop
 
-**Status: live.** Routine `Pandora Box daily maintenance`
-(`trig_01D4A6WB4UGtLSGZFcRosEWz`) fires daily at 13:00 UTC. Check current
-status with the `claude-code-remote` MCP server's `list_triggers` tool.
+**Status: NOT RUNNING — corrected 2026-08-29.** This section read
+**"Status: live"** and named Routine `Pandora Box daily maintenance`
+(`trig_01D4A6WB4UGtLSGZFcRosEWz`), firing daily at 13:00 UTC. Measured
+against the account's real trigger list on 2026-08-29: **that Routine does
+not exist.** Three Routines are live on the account and none of them is it.
+
+**It appears never to have run at all.** The git history is unambiguous:
+
+```
+d176a55  2026-07-27  Redesign as an agentic-ecosystem daily-synthesis site
+                     ← the ONLY commit that has ever touched data/daily/
+f6cfa23  2026-08-01  Document that the daily maintenance Routine is now live
+                     ← this file's "Status: live", five days LATER
+                     (zero commits to data/daily/ since)
+```
+
+All three entries arrived in one commit, dated 07-25/26/27 within it. The
+Routine was declared live afterwards and `data/daily/` has not been touched
+since. So this is not a pipeline that ran and stopped — there is no evidence it
+ever produced a single entry, and the claim was written before it could have.
+
+A file asserting a mechanism nobody re-checks is worse than no file: every
+reader downstream, human or agent, plans as though the pipeline is feeding.
+
+**What this does not mean.** The loop below is not wrong, it is unscheduled —
+the design, the schemas and the standing instruction are all still exactly
+what a firing would need. Re-arming it is one `create_trigger` call with the
+prompt reproduced under "Adjusting the schedule" below, and nothing in this
+repo has to change for that to work. Check the current state yourself with the
+`claude-code-remote` MCP server's `list_triggers` tool rather than trusting
+this line — that is the habit whose absence is the whole reason for this
+correction.
+
+**The content is now also published by the Easyly Network**, at
+`easyly-network.com/field-guide` — free, no account needed. It was adopted
+there on 2026-08-29 (SHL-113 in `ThePandoraBox/easyly-platform` — renumbered
+from SHL-111 the same day after a real id collision with an unrelated item;
+see that PR's own note) precisely
+because nothing here was feeding: the write-ups, forecasts and pattern
+library were ported into that repo, where they ship under its own gates and
+its daily release train. **That copy is the maintained one.** This repo keeps
+serving the site it always did; if the Routine is re-armed here, the two will
+need reconciling, and the honest fix at that point is to pick one source of
+truth rather than to let both drift.
 
 Each firing spawns a **fresh** Claude Code session (`create_new_session_on_fire`)
 with no memory of prior runs — the standing instruction below and this

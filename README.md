@@ -13,10 +13,15 @@ Three layers:
    converging on: prompt chaining, routing, parallelization,
    orchestrator-workers, evaluator-optimizer, ReAct, Reflexion, memory
    architectures, autonomous agent loops, and human-in-the-loop gates.
-2. **The daily log** (`data/daily/*.json`) — one new entry added per day by
-   an automated agent that researches recent developments in agentic
-   architecture (papers, engineering blogs, trending repos) and synthesizes
-   a short, specific write-up.
+2. **The daily log** (`data/daily/*.json`) — dated write-ups, each
+   researching a recent development in agentic architecture (papers,
+   engineering blogs, trending repos) and synthesizing a short, specific
+   piece. **It is not currently daily**: all three arrived in a single
+   commit on 2026-07-27, the Routine meant to add more was declared live five
+   days after that, and `data/daily/` has not been touched since. See
+   [`AUTOMATION.md`](AUTOMATION.md) for the measurement and how to re-arm it —
+   this line used to promise "one new entry added per day", which was false
+   for a month before anybody checked.
 3. **Forecasts** (`data/forecasts/*.json`) — specific, checkable predictions
    about where agentic AI is headed, each with a probability and a
    resolution date, scored against reality once that date arrives.
@@ -75,6 +80,15 @@ automatically once enabled. Two ways to enable it:
 `.github/workflows/validate-content.yml` checks schema, index consistency,
 and that neither generator's output has drifted, on every push that
 touches generated content.
+
+## Also published on the Easyly Network
+
+The write-ups, forecasts and pattern library here were adopted on 2026-08-29
+into the Easyly Network as the **Easyly Field Guide**, at
+[easyly-network.com/field-guide](https://easyly-network.com/field-guide) —
+free, no account needed. That copy is the maintained one; it ships under that
+platform's own gates and release train. This repo continues to serve the
+static site it always has.
 
 ## License
 
