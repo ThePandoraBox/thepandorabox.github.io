@@ -43,7 +43,9 @@ correction.
 
 **The content is now also published by the Easyly Network**, at
 `easyly-network.com/field-guide` — free, no account needed. It was adopted
-there on 2026-08-29 (SHL-111 in `ThePandoraBox/easyly-platform`) precisely
+there on 2026-08-29 (SHL-113 in `ThePandoraBox/easyly-platform` — renumbered
+from SHL-111 the same day after a real id collision with an unrelated item;
+see that PR's own note) precisely
 because nothing here was feeding: the write-ups, forecasts and pattern
 library were ported into that repo, where they ship under its own gates and
 its daily release train. **That copy is the maintained one.** This repo keeps
