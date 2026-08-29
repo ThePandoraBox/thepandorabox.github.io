@@ -8,9 +8,36 @@ doing real research and a real commit each day.
 
 ## The loop
 
-**Status: live.** Routine `Pandora Box daily maintenance`
-(`trig_01D4A6WB4UGtLSGZFcRosEWz`) fires daily at 13:00 UTC. Check current
-status with the `claude-code-remote` MCP server's `list_triggers` tool.
+**Status: NOT RUNNING — corrected 2026-08-29.** This section read
+**"Status: live"** and named Routine `Pandora Box daily maintenance`
+(`trig_01D4A6WB4UGtLSGZFcRosEWz`), firing daily at 13:00 UTC. Measured
+against the account's real trigger list on 2026-08-29: **that Routine does
+not exist.** Three Routines are live on the account and none of them is it.
+
+The evidence was already on the page it describes — the newest entry in
+`data/daily/` is **2026-07-27**, thirty-three days earlier, against three
+entries in total. A file asserting a mechanism nobody re-checks is worse than
+no file: every reader downstream, human or agent, plans as though the pipeline
+is feeding.
+
+**What this does not mean.** The loop below is not wrong, it is unscheduled —
+the design, the schemas and the standing instruction are all still exactly
+what a firing would need. Re-arming it is one `create_trigger` call with the
+prompt reproduced under "Adjusting the schedule" below, and nothing in this
+repo has to change for that to work. Check the current state yourself with the
+`claude-code-remote` MCP server's `list_triggers` tool rather than trusting
+this line — that is the habit whose absence is the whole reason for this
+correction.
+
+**The content is now also published by the Easyly Network**, at
+`easyly-network.com/field-guide` — free, no account needed. It was adopted
+there on 2026-08-29 (SHL-111 in `ThePandoraBox/easyly-platform`) precisely
+because the pipeline here had stopped: the write-ups, forecasts and pattern
+library were ported into that repo, where they ship under its own gates and
+its daily release train. **That copy is the maintained one.** This repo keeps
+serving the site it always did; if the Routine is re-armed here, the two will
+need reconciling, and the honest fix at that point is to pick one source of
+truth rather than to let both drift.
 
 Each firing spawns a **fresh** Claude Code session (`create_new_session_on_fire`)
 with no memory of prior runs — the standing instruction below and this
